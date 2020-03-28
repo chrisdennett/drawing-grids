@@ -17,7 +17,6 @@ import {
 
 export default function App() {
   const [sourceImg, setSourceImg] = useState(null);
-  const [spriteSheet, setSpriteSheet] = useState(null);
   const [appData, setAppData] = useState(getAppData());
   const [canvasRef, setCanvasRef] = useState(null);
   const [optionsVisible, setOptionsVisible] = useState(true);
@@ -63,12 +62,6 @@ export default function App() {
       };
       image.src = "./img/my-awesome-art.jpg";
     }
-
-    if (!spriteSheet) {
-      loadImage(fancyFrameSpriteSheet, img => {
-        setSpriteSheet(img);
-      });
-    }
   });
 
   return (
@@ -101,7 +94,6 @@ export default function App() {
       >
         <Display
           sourceImg={sourceImg}
-          spriteSheet={spriteSheet}
           setCanvasRef={setCanvasRef}
           sizeInfo={{ width: mainWidth, height: mainHeight }}
           appData={appData}

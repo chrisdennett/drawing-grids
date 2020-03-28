@@ -8,16 +8,13 @@ import { SwitchControl } from "./switchControl/SwitchControl";
 import ColourPicker from "../components/colourPicker/ColourPicker";
 import PhotoSelector from "../components/photoSelector/PhotoSelector";
 import QuickSelectMenu from "../components/quickSelectControl/QuickSelectControl";
-import { PiffleControl } from "./piffleControl/PiffleControl";
 
 const Controls = ({
   appData,
   onUpdate,
   wrap = false,
   onSaveImage,
-  onAddImage,
-  piffle,
-  setPiffle
+  onAddImage
 }) => {
   const { settings } = appData;
 

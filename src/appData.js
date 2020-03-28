@@ -1,15 +1,3 @@
-export const frameOptionSettings = {
-  simple: {
-    frameType: "simple",
-    frameBevel: 5
-  },
-
-  fancy: {
-    frameType: "fancy",
-    frameBevel: 0
-  }
-};
-
 const defaultAppData = {
   title: "Drawing Grids",
   infoUrl: "https://artfly.io/drawing-grid/",
@@ -23,48 +11,75 @@ const defaultAppData = {
       defaultValue: true
     },
 
+    labelGrid: {
+      dividerAbove: true,
+      label: "Label Grid",
+      type: "boolean",
+      defaultValue: true
+    },
+
     showGrid: {
       label: "Show Grid",
       type: "boolean",
       defaultValue: true
     },
 
-    addOutline: {
-      label: "Show Grid",
-      type: "boolean",
-      defaultValue: false
-    },
-
-    blur: {
-      showIfs: [{ key: "addOutline", condition: true }],
-      dividerAbove: true,
-      label: "Detail 1",
-      type: "range",
-      min: 1,
-      max: 12,
-      step: 1,
-      defaultValue: 32
-    },
-
-    highThreshold: {
-      showIfs: [{ key: "addOutline", condition: true }],
-      label: "Detail 2",
+    cols: {
+      showIfs: [{ key: "showGrid", condition: true }],
+      label: "Columns",
       type: "range",
       min: 0,
       max: 100,
       step: 1,
-      defaultValue: 20
+      defaultValue: 12
     },
 
-    lowThreshold: {
-      showIfs: [{ key: "addOutline", condition: true }],
-      label: "Detail 3",
+    rows: {
+      showIfs: [{ key: "showGrid", condition: true }],
+      label: "rows",
       type: "range",
       min: 0,
       max: 100,
       step: 1,
-      defaultValue: 54
+      defaultValue: 12
     }
+
+    // addOutline: {
+    //   label: "Show Grid",
+    //   type: "boolean",
+    //   defaultValue: false
+    // },
+
+    // blur: {
+    //   showIfs: [{ key: "addOutline", condition: true }],
+    //   dividerAbove: true,
+    //   label: "Detail 1",
+    //   type: "range",
+    //   min: 1,
+    //   max: 12,
+    //   step: 1,
+    //   defaultValue: 32
+    // },
+
+    // highThreshold: {
+    //   showIfs: [{ key: "addOutline", condition: true }],
+    //   label: "Detail 2",
+    //   type: "range",
+    //   min: 0,
+    //   max: 100,
+    //   step: 1,
+    //   defaultValue: 20
+    // },
+
+    // lowThreshold: {
+    //   showIfs: [{ key: "addOutline", condition: true }],
+    //   label: "Detail 3",
+    //   type: "range",
+    //   min: 0,
+    //   max: 100,
+    //   step: 1,
+    //   defaultValue: 54
+    // }
 
     // cropArtwork: {
     //   dividerAbove: true,
