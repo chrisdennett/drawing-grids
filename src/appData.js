@@ -15,7 +15,7 @@ const defaultAppData = {
       dividerAbove: true,
       label: "Show Cell",
       type: "boolean",
-      defaultValue: true
+      defaultValue: false
     },
 
     showGrid: {

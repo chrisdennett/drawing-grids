@@ -22,11 +22,11 @@ export default function App() {
   const [optionsVisible, setOptionsVisible] = useState(true);
   const { width, height } = useWindowDimensions();
 
-  const controlsOnLeft = width > 700;
-  const appBarHeight = 60;
-  const controlPanelSize = 200;
   const mainOutterPadding = 10;
   const mainInnerPadding = 10;
+  const controlsOnLeft = width > 700;
+  const appBarHeight = 60;
+  const controlPanelSize = optionsVisible ? 200 : mainOutterPadding;
 
   const controlPanelTop = controlsOnLeft
     ? appBarHeight
@@ -76,17 +76,19 @@ export default function App() {
         />
       </AppBar>
 
-      <ControlPanel top={controlPanelTop} width={controlPanelWidth}>
-        <Controls
-          currCellIndex={currCellIndex}
-          setCurrCellIndex={setCurrCellIndex}
-          onSaveImage={onSaveImage}
-          onAddImage={onAddImage}
-          onUpdate={setAppData}
-          appData={appData}
-          wrap={width < 700}
-        />
-      </ControlPanel>
+      {optionsVisible && (
+        <ControlPanel top={controlPanelTop} width={controlPanelWidth}>
+          <Controls
+            currCellIndex={currCellIndex}
+            setCurrCellIndex={setCurrCellIndex}
+            onSaveImage={onSaveImage}
+            onAddImage={onAddImage}
+            onUpdate={setAppData}
+            appData={appData}
+            wrap={width < 700}
+          />
+        </ControlPanel>
+      )}
 
       <Main
         top={appBarHeight}
