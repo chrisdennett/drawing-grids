@@ -69,8 +69,8 @@ const createGridCanvas = ({
 
   const cellHeight = imgH / rows;
   const cellWidth = imgW / cols;
-  const xOffset = cellWidth;
-  const yOffset = cellHeight;
+  const xOffset = labelGrid ? cellWidth : 10;
+  const yOffset = labelGrid ? cellHeight : 10;
 
   outputCanvas.width = imgW + xOffset + 10;
   outputCanvas.height = imgH + yOffset + 10;
