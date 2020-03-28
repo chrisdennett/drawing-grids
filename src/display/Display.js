@@ -5,11 +5,13 @@ const Display = ({ appData, setCanvasRef, sourceImg, sizeInfo }) => {
   const canvasRef = useRef(null);
   setCanvasRef(canvasRef.current);
 
-  const { height: displayHeight } = sizeInfo;
+  const { height: displayHeight, width: displayWidth } = sizeInfo;
 
   if (sourceImg) {
     const gridCanvas = createGridCanvas({
       sourceCanvas: sourceImg,
+      displayHeight,
+      displayWidth,
       ...appData
     });
     const ctx = canvasRef.current.getContext("2d");
@@ -58,17 +60,138 @@ const CanvasStyled = styled.canvas`
 // helper functions
 const createGridCanvas = ({
   sourceCanvas,
+  displayHeight,
+  displayWidth,
   showSource,
   showGrid,
   labelGrid,
   cols,
-  rows
+  rows,
+  showCell,
+  currCell = [8, 2]
 }) => {
   const outputCanvas = document.createElement("canvas");
   const { width: imgW, height: imgH } = sourceCanvas;
 
   const cellHeight = imgH / rows;
   const cellWidth = imgW / cols;
+
+  if (showCell) {
+    createCellCanvas({
+      displayHeight,
+      displayWidth,
+      sourceCanvas,
+      outputCanvas,
+      cellWidth,
+      cellHeight,
+      col: currCell[0],
+      row: currCell[1]
+    });
+  } else {
+    drawFullCanvas({
+      outputCanvas,
+      sourceCanvas,
+      showSource,
+      showGrid,
+      labelGrid,
+      cols,
+      rows,
+      cellWidth,
+      cellHeight,
+      imgW,
+      imgH
+    });
+  }
+
+  return outputCanvas;
+};
+
+const createCellCanvas = ({
+  sourceCanvas,
+  outputCanvas,
+  displayWidth,
+  col,
+  row,
+  cellWidth,
+  cellHeight
+}) => {
+  const wToHRatio = cellHeight / cellWidth;
+
+  const padding = 10;
+  const topPadding = 60;
+  let outputWidth = displayWidth;
+  let outputHeight = displayWidth * wToHRatio;
+
+  outputCanvas.width = outputWidth + padding + padding;
+  outputCanvas.height = outputHeight + topPadding + padding;
+  const ctx = outputCanvas.getContext("2d");
+
+  // BG
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, outputCanvas.width, outputCanvas.height);
+
+  const fontSize = 42;
+  const text = `${getColLabel(col)}, ${getRowLabel(row)}`;
+  ctx.fillStyle = "black";
+
+  ctx.font = `${fontSize}px serif`;
+  ctx.fillText(text, 10, fontSize);
+
+  const srcX = col * cellWidth;
+  const srcY = row * cellHeight;
+
+  ctx.drawImage(
+    sourceCanvas,
+    srcX,
+    srcY,
+    cellWidth,
+    cellHeight,
+    padding,
+    topPadding,
+    outputWidth,
+    outputHeight
+  );
+
+  ctx.strokeRect(padding, topPadding, outputWidth, outputHeight);
+
+  drawGuideLines({
+    ctx,
+    x: padding,
+    y: topPadding,
+    width: outputWidth,
+    height: outputHeight
+  });
+};
+
+const drawGuideLines = ({ ctx, x, y, width, height }) => {
+  const halfXPos = x + width / 2;
+  const halfYPos = y + height / 2;
+
+  // middle
+  ctx.beginPath();
+  ctx.moveTo(halfXPos, y);
+  ctx.lineTo(halfXPos, y + height);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(x, halfYPos);
+  ctx.lineTo(x + width, halfYPos);
+  ctx.stroke();
+};
+
+const drawFullCanvas = ({
+  outputCanvas,
+  sourceCanvas,
+  showSource,
+  showGrid,
+  labelGrid,
+  cols,
+  rows,
+  cellWidth,
+  cellHeight,
+  imgW,
+  imgH
+}) => {
   const xOffset = labelGrid ? cellWidth : 10;
   const yOffset = labelGrid ? cellHeight : 10;
 
@@ -76,7 +199,6 @@ const createGridCanvas = ({
   outputCanvas.height = imgH + yOffset + 10;
 
   const ctx = outputCanvas.getContext("2d");
-
   // BG
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, outputCanvas.width, outputCanvas.height);
@@ -103,8 +225,6 @@ const createGridCanvas = ({
       yOffset
     });
   }
-
-  return outputCanvas;
 };
 
 const drawGrid = ({
@@ -139,14 +259,13 @@ const drawGridLabels = ({
 }) => {
   const fontSize = Math.min(cellWidth / 2, cellHeight / 2);
   ctx.fillStyle = "black";
-  ctx.font = `${fontSize}px calibri`;
-  const rowLabels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  ctx.font = `${fontSize}px serif`;
 
   // TOP
   let textX = cellWidth / 2 - fontSize / 2;
   let textY = cellHeight - 10;
   for (let c = 0; c < cols; c++) {
-    const label = c < rowLabels.length ? rowLabels[c] : c;
+    const label = getColLabel(c);
     ctx.fillText(label, xOffset + textX + c * cellWidth, textY);
   }
 
@@ -155,7 +274,17 @@ const drawGridLabels = ({
   textX = cellWidth - 10;
   ctx.textAlign = "right";
   for (let r = 0; r < rows; r++) {
-    const label = r + 1;
+    const label = getRowLabel(r);
     ctx.fillText("" + label, textX, yOffset + textY + r * cellHeight);
   }
+};
+
+const rowLabels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+const getColLabel = colIndex => {
+  return colIndex < rowLabels.length ? rowLabels[colIndex] : colIndex + 1;
+};
+
+const getRowLabel = rowIndex => {
+  return rowIndex + 1;
 };

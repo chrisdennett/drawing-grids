@@ -11,15 +11,23 @@ const defaultAppData = {
       defaultValue: true
     },
 
-    labelGrid: {
+    showCell: {
       dividerAbove: true,
-      label: "Label Grid",
+      label: "Show Cell",
       type: "boolean",
       defaultValue: true
     },
 
     showGrid: {
+      dividerAbove: true,
       label: "Show Grid",
+      type: "boolean",
+      defaultValue: true
+    },
+
+    labelGrid: {
+      showIfs: [{ key: "showGrid", condition: true }],
+      label: "Label Grid",
       type: "boolean",
       defaultValue: true
     },

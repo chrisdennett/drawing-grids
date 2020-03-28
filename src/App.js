@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { saveAs } from "file-saver";
-import fancyFrameSpriteSheet from "./spritesheet.png";
 // comps
 //
 import TopBar from "./top-bar/TopBar";
@@ -102,15 +101,6 @@ export default function App() {
     </AppHolder>
   );
 }
-
-const loadImage = (url, callback) => {
-  let sourceImg = new Image();
-  sourceImg.setAttribute("crossOrigin", "anonymous"); //
-  sourceImg.src = url;
-  sourceImg.onload = () => {
-    if (callback) callback(sourceImg);
-  };
-};
 
 export const createCanvasFromFile = (file, callback) => {
   const maxOutputCanvasSize = 1000;
