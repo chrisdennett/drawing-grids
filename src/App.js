@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { saveAs } from "file-saver";
 // comps
-//
 import TopBar from "./top-bar/TopBar";
 import Display from "./display/Display";
 import Controls from "./controls/Controls";
