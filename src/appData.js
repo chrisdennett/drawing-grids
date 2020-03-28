@@ -11,56 +11,59 @@ export const frameOptionSettings = {
 };
 
 const defaultAppData = {
-  title: "Framed",
-  infoUrl: "https://artfly.io/framed/",
-  defaultSaveName: "artfly-framed.jpg",
+  title: "Drawing Grids",
+  infoUrl: "https://artfly.io/drawing-grid/",
+  defaultSaveName: "artfly-drawing-grid.jpg",
   settings: {
-    frameOption: {
-      label: "Frame Type",
+    //
+    showSource: {
       dividerAbove: true,
-      defaultValue: "simple",
-      type: "select",
-      options: {
-        simple: {
-          name: "Simple"
-        },
-        fancy: {
-          name: "Fancy"
-        }
-      }
+      label: "Show Source",
+      type: "boolean",
+      defaultValue: true
     },
 
-    frameColour: {
-      showIfs: [{ key: "frameOption", condition: "simple" }],
-      dividerAbove: true,
-      label: "Frame Colour",
-      type: "colour",
-      defaultValue: "#242424"
+    showGrid: {
+      label: "Show Grid",
+      type: "boolean",
+      defaultValue: true
     },
 
-    mountColour: {
-      label: "Mount Colour",
-      type: "colour",
-      defaultValue: "#f5f5f5"
+    addOutline: {
+      label: "Show Grid",
+      type: "boolean",
+      defaultValue: false
     },
 
-    frameThickness: {
+    blur: {
+      showIfs: [{ key: "addOutline", condition: true }],
       dividerAbove: true,
-      label: "Frame Thickness",
+      label: "Detail 1",
       type: "range",
       min: 1,
-      max: 201,
+      max: 12,
       step: 1,
       defaultValue: 32
     },
 
-    mountThickness: {
-      label: "Mount Thickness",
+    highThreshold: {
+      showIfs: [{ key: "addOutline", condition: true }],
+      label: "Detail 2",
       type: "range",
-      min: 1,
-      max: 201,
+      min: 0,
+      max: 100,
       step: 1,
-      defaultValue: 62
+      defaultValue: 20
+    },
+
+    lowThreshold: {
+      showIfs: [{ key: "addOutline", condition: true }],
+      label: "Detail 3",
+      type: "range",
+      min: 0,
+      max: 100,
+      step: 1,
+      defaultValue: 54
     }
 
     // cropArtwork: {

@@ -17,11 +17,6 @@ import {
 
 export default function App() {
   const [sourceImg, setSourceImg] = useState(null);
-  const [piffle, setPiffle] = useState({
-    name: "chris",
-    media: "sharpie",
-    text: "xxx"
-  });
   const [spriteSheet, setSpriteSheet] = useState(null);
   const [appData, setAppData] = useState(getAppData());
   const [canvasRef, setCanvasRef] = useState(null);
@@ -90,8 +85,6 @@ export default function App() {
 
       <ControlPanel top={controlPanelTop} width={controlPanelWidth}>
         <Controls
-          piffle={piffle}
-          setPiffle={setPiffle}
           onSaveImage={onSaveImage}
           onAddImage={onAddImage}
           onUpdate={setAppData}
@@ -107,7 +100,6 @@ export default function App() {
         left={mainLeft}
       >
         <Display
-          piffle={piffle}
           sourceImg={sourceImg}
           spriteSheet={spriteSheet}
           setCanvasRef={setCanvasRef}
