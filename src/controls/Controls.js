@@ -87,6 +87,20 @@ const Controls = ({
             );
           }
 
+          if (currSetting.type === "stepper") {
+            return (
+              <ControlHolder dividerAbove={dividerAbove} key={key}>
+                <NumberStepper
+                  label={currSetting.label}
+                  value={currValue}
+                  onUpdate={value => updateSettings(key, value)}
+                  min={currSetting.min}
+                  max={currSetting.max}
+                />
+              </ControlHolder>
+            );
+          }
+
           if (currSetting.type === "colour") {
             return (
               <ControlHolder dividerAbove={dividerAbove} key={key}>

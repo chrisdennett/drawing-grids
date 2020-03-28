@@ -59,7 +59,7 @@ export default function App() {
       image.onload = () => {
         setSourceImg(image);
       };
-      image.src = "./img/my-awesome-art.jpg";
+      image.src = "./img/doug.png";
     }
   });
 

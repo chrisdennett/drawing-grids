@@ -37,29 +37,29 @@ const defaultAppData = {
     },
 
     cols: {
+      dividerAbove: true,
       showIfs: [
         { key: "showGrid", condition: true },
         { key: "showCell", condition: false }
       ],
       label: "Columns",
-      type: "range",
+      type: "stepper",
       min: 2,
       max: 30,
-      step: 1,
-      defaultValue: 12
+      defaultValue: 8
     },
 
     rows: {
+      dividerAbove: true,
       showIfs: [
         { key: "showGrid", condition: true },
         { key: "showCell", condition: false }
       ],
       label: "rows",
-      type: "range",
+      type: "stepper",
       min: 2,
       max: 30,
-      step: 1,
-      defaultValue: 12
+      defaultValue: 10
     }
 
     // addOutline: {
