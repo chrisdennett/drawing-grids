@@ -43,8 +43,8 @@ const defaultAppData = {
       ],
       label: "Columns",
       type: "range",
-      min: 0,
-      max: 100,
+      min: 2,
+      max: 30,
       step: 1,
       defaultValue: 12
     },
@@ -56,8 +56,8 @@ const defaultAppData = {
       ],
       label: "rows",
       type: "range",
-      min: 0,
-      max: 100,
+      min: 2,
+      max: 30,
       step: 1,
       defaultValue: 12
     }
