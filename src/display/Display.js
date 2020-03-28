@@ -1,7 +1,13 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 
-const Display = ({ appData, setCanvasRef, sourceImg, sizeInfo }) => {
+const Display = ({
+  appData,
+  setCanvasRef,
+  sourceImg,
+  sizeInfo,
+  currCellIndex
+}) => {
   const canvasRef = useRef(null);
   setCanvasRef(canvasRef.current);
 
@@ -10,6 +16,7 @@ const Display = ({ appData, setCanvasRef, sourceImg, sizeInfo }) => {
   if (sourceImg) {
     const gridCanvas = createGridCanvas({
       sourceCanvas: sourceImg,
+      currCellIndex,
       displayHeight,
       displayWidth,
       ...appData
@@ -60,6 +67,7 @@ const CanvasStyled = styled.canvas`
 // helper functions
 const createGridCanvas = ({
   sourceCanvas,
+  currCellIndex,
   displayHeight,
   displayWidth,
   showSource,
@@ -67,11 +75,12 @@ const createGridCanvas = ({
   labelGrid,
   cols,
   rows,
-  showCell,
-  currCell = [8, 2]
+  showCell
 }) => {
   const outputCanvas = document.createElement("canvas");
   const { width: imgW, height: imgH } = sourceCanvas;
+
+  const currCell = getCurrCell(currCellIndex, cols, rows);
 
   const cellHeight = imgH / rows;
   const cellWidth = imgW / cols;
@@ -89,6 +98,7 @@ const createGridCanvas = ({
     });
   } else {
     drawFullCanvas({
+      currCell,
       outputCanvas,
       sourceCanvas,
       showSource,
@@ -104,6 +114,13 @@ const createGridCanvas = ({
   }
 
   return outputCanvas;
+};
+
+export const getCurrCell = (currCellIndex, cols, rows) => {
+  const currRow = Math.floor(currCellIndex / cols);
+  const currCol = currCellIndex % cols;
+
+  return [currCol, currRow];
 };
 
 const createCellCanvas = ({
@@ -180,6 +197,7 @@ const drawGuideLines = ({ ctx, x, y, width, height }) => {
 };
 
 const drawFullCanvas = ({
+  currCell,
   outputCanvas,
   sourceCanvas,
   showSource,
@@ -210,7 +228,16 @@ const drawFullCanvas = ({
 
   // GRID
   if (showGrid) {
-    drawGrid({ ctx, cols, rows, cellHeight, cellWidth, xOffset, yOffset });
+    drawGrid({
+      ctx,
+      cols,
+      rows,
+      cellHeight,
+      cellWidth,
+      xOffset,
+      yOffset,
+      currCell
+    });
   }
 
   // GRID LABELS
@@ -231,6 +258,7 @@ const drawGrid = ({
   ctx,
   cols = 14,
   rows = 10,
+  currCell,
   cellHeight,
   cellWidth,
   xOffset,
@@ -246,6 +274,14 @@ const drawGrid = ({
       );
     }
   }
+
+  ctx.strokeStyle = "red";
+  ctx.strokeRect(
+    xOffset + currCell[0] * cellWidth,
+    yOffset + currCell[1] * cellHeight,
+    cellWidth,
+    cellHeight
+  );
 };
 
 const drawGridLabels = ({

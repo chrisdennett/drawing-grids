@@ -16,6 +16,7 @@ import {
 
 export default function App() {
   const [sourceImg, setSourceImg] = useState(null);
+  const [currCellIndex, setCurrCellIndex] = useState(0);
   const [appData, setAppData] = useState(getAppData());
   const [canvasRef, setCanvasRef] = useState(null);
   const [optionsVisible, setOptionsVisible] = useState(true);
@@ -77,6 +78,8 @@ export default function App() {
 
       <ControlPanel top={controlPanelTop} width={controlPanelWidth}>
         <Controls
+          currCellIndex={currCellIndex}
+          setCurrCellIndex={setCurrCellIndex}
           onSaveImage={onSaveImage}
           onAddImage={onAddImage}
           onUpdate={setAppData}
@@ -93,6 +96,7 @@ export default function App() {
       >
         <Display
           sourceImg={sourceImg}
+          currCellIndex={currCellIndex}
           setCanvasRef={setCanvasRef}
           sizeInfo={{ width: mainWidth, height: mainHeight }}
           appData={appData}

@@ -19,6 +19,7 @@ const defaultAppData = {
     },
 
     showGrid: {
+      showIfs: [{ key: "showCell", condition: false }],
       dividerAbove: true,
       label: "Show Grid",
       type: "boolean",
@@ -26,14 +27,20 @@ const defaultAppData = {
     },
 
     labelGrid: {
-      showIfs: [{ key: "showGrid", condition: true }],
+      showIfs: [
+        { key: "showGrid", condition: true },
+        { key: "showCell", condition: false }
+      ],
       label: "Label Grid",
       type: "boolean",
       defaultValue: true
     },
 
     cols: {
-      showIfs: [{ key: "showGrid", condition: true }],
+      showIfs: [
+        { key: "showGrid", condition: true },
+        { key: "showCell", condition: false }
+      ],
       label: "Columns",
       type: "range",
       min: 0,
@@ -43,7 +50,10 @@ const defaultAppData = {
     },
 
     rows: {
-      showIfs: [{ key: "showGrid", condition: true }],
+      showIfs: [
+        { key: "showGrid", condition: true },
+        { key: "showCell", condition: false }
+      ],
       label: "rows",
       type: "range",
       min: 0,
