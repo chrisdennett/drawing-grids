@@ -188,11 +188,13 @@ const drawGuideLines = ({ ctx, x, y, width, height }) => {
   ctx.beginPath();
   ctx.moveTo(halfXPos, y);
   ctx.lineTo(halfXPos, y + height);
+  ctx.setLineDash([5, 25]);
   ctx.stroke();
 
   ctx.beginPath();
   ctx.moveTo(x, halfYPos);
   ctx.lineTo(x + width, halfYPos);
+  ctx.setLineDash([5, 25]);
   ctx.stroke();
 };
 
