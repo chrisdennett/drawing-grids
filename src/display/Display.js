@@ -256,6 +256,28 @@ const drawFullCanvas = ({
   }
 };
 
+const drawImageAsGrid = ({
+  ctx,
+  img,
+  cols = 14,
+  rows = 10,
+  cellHeight,
+  cellWidth,
+  xOffset,
+  yOffset
+}) => {
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      ctx.strokeRect(
+        xOffset + c * cellWidth,
+        yOffset + r * cellHeight,
+        cellWidth,
+        cellHeight
+      );
+    }
+  }
+};
+
 const drawGrid = ({
   ctx,
   cols = 14,
